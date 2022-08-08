@@ -3,7 +3,7 @@
 	{{#if url}}
 		<div class='alert alert-info' role='alert'>
 			<span class='mr-2'>Shorten URL:</span>
-			<p>{{url.short}}</p>
+			<p>{{url.defaultUrl}}{{url.short}}</p>
 		</div>
 	{{/if}}
 	<div class='d-flex flex-column mb-3'>
@@ -41,7 +41,9 @@
 				<tr>
 					<th scope='row'></th>
 					<td><a href='{{this.full}}'>{{this.full}}</a></td>
-					<td><a href='/{{this.short}}'>{{this.short}}</a></td>
+					<td><a
+							href='/{{this.short}}'
+						>{{this.defaultUrl}}{{this.short}}</a></td>
 				</tr>
 			</tbody>
 		{{/each}}

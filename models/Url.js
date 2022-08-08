@@ -12,6 +12,10 @@ const urlSchema = new mongoose.Schema({
 		required: true,
 		default: shortId.generate,
 	},
+	defaultUrl: {
+		type: String,
+		default: 'https://urlShortener.herokuapp.com/',
+	},
 })
 
 module.exports = mongoose.model('Url', urlSchema)
