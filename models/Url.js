@@ -5,6 +5,7 @@ const urlSchema = new mongoose.Schema({
 	full: {
 		type: String,
 		required: true,
+		unique: true,
 	},
 	short: {
 		type: String,
