@@ -1,19 +1,49 @@
 <h1 class='text-center mt-3'>Url Shortener</h1>
-<form action='/shortUrl' method='POST'>
+<form action='/shortUrl' method='POST' class='needs-validation' novalidate>
+	{{#if url}}
+		<div class='alert alert-info' role='alert'>
+			<span class='mr-2'>Shorten URL:</span>
+			<p>{{url.short}}</p>
+		</div>
+	{{/if}}
 	<div class='d-flex flex-column mb-3'>
 		<img
 			src='../images/ExportedContentImage_00.png'
 			alt='url-icon'
 			class='url-img rounded d-block mb-3'
 		/>
-		<label for='shortenUrl'></label>
+		<label for='fullUrl'></label>
 		<input
 			type='url'
-			name='shortenUrl'
-			id='shortenUrl'
+			name='fullUrl'
+			id='fullUrl'
 			class='form-control mb-3 .bg-light.bg-gradient'
 			placeholder='input url here'
+			required
 		/>
+		<div class='invalid-feedback'>
+			Please provide URL.
+		</div>
 		<button type='submit' class='btn btn-info mb-3'>Shorten</button>
 	</div>
 </form>
+{{#if url}}
+	<table class='table table-striped'>
+		<thead>
+			<tr>
+				<th scope='col'></th>
+				<th scope='col'>Full-Url</th>
+				<th scope='col'>Short-Url</th>
+			</tr>
+		</thead>
+		{{#each url}}
+			<tbody>
+				<tr>
+					<th scope='row'></th>
+					<td>{{this.full}}</td>
+					<td>{{this.short}}</td>
+				</tr>
+			</tbody>
+		{{/each}}
+	</table>
+{{/if}}
