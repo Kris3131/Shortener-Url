@@ -1,4 +1,19 @@
-<h1>Url Shortener</h1>
+<h1 class='text-center mt-3'>Url Shortener</h1>
 <form action='/shortUrl' method='POST'>
-	<img src='../images/ExportedContentImage_00.png' alt='' />
+	<div class='d-flex flex-column mb-3'>
+		<img
+			src='../images/ExportedContentImage_00.png'
+			alt='url-icon'
+			class='url-img rounded d-block mb-3'
+		/>
+		<label for='shortenUrl'></label>
+		<input
+			type='url'
+			name='shortenUrl'
+			id='shortenUrl'
+			class='form-control mb-3 .bg-light.bg-gradient'
+			placeholder='input url here'
+		/>
+		<button type='submit' class='btn btn-info mb-3'>Shorten</button>
+	</div>
 </form>
