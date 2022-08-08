@@ -10,8 +10,11 @@ router.get('/', (req, res) => {
 })
 
 router.post('/shortUrl', (req, res) => {
-	Url.create({ full: req.body.fullUrl })
-		.then(() => res.redirect('/'))
+	Url.findOne({ full: req.body.fullUrl })
+		.then((url) => {
+			url ? url : Url.create({ full: req.body.fullUrl })
+			res.redirect('/')
+		})
 		.catch((err) => console.log(err))
 })
 
