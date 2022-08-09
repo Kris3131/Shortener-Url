@@ -19,6 +19,7 @@ router.post('/shortUrl', (req, res) => {
 				})
 				.catch((err) => console.log(err))
 		} else {
+			// 輸入相同網址時，會導入 show 頁面，呈現所有製作過的URL
 			res.redirect('/shortUrl')
 		}
 	})
@@ -28,6 +29,13 @@ router.get('/shortUrl', (req, res) => {
 		.lean()
 		.sort({ _id: 'desc' })
 		.then((url) => res.render('show', { url }))
+		.catch((err) => console.log(err))
+})
+router.get('/:shortUrl', (req, res) => {
+	Url.findOne({ short: req.params.shortUrl })
+		.then((url) => {
+			url === null ? res.render('error') : res.redirect(url.full)
+		})
 		.catch((err) => console.log(err))
 })
 

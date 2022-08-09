@@ -1,5 +1,6 @@
 <h1 class='text-center mt-3'>Url Shortener</h1>
-<form action='/shortUrl' method='POST' class='needs-validation' novalidate>
+{{! 若使用者沒有輸入內容，按下了送出鈕，提示使用者 }}
+<form action='/shortUrl' method='POST' class='needs-validation'>
 	{{#if url}}
 		<div class='alert alert-info' role='alert'>
 			<span class='mr-2'>Shorten URL:</span>
