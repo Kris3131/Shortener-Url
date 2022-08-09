@@ -19,9 +19,15 @@ router.post('/shortUrl', (req, res) => {
 				})
 				.catch((err) => console.log(err))
 		} else {
-			res.redirect('/')
+			res.redirect('/shortUrl')
 		}
 	})
+})
+router.get('/shortUrl', (req, res) => {
+	Url.find()
+		.lean()
+		.then((url) => res.render('show', { url }))
+		.catch((err) => console.log(err))
 })
 
 module.exports = router

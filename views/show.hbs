@@ -1,19 +1,19 @@
 <table class='table table-striped'>
-	<thead>
+	<thead class='thead-light'>
 		<tr>
 			<th scope='col'></th>
 			<th scope='col'>Full-Url</th>
 			<th scope='col'>Short-Url</th>
 		</tr>
 	</thead>
-	<tbody>
-		<tr>
-			{{#each url}}
+	{{#each url}}
+		<tbody>
+			<tr>
 				<th scope='row'></th>
 				<td><a href='{{this.full}}'>{{this.full}}</a></td>
 				<td><a href='/{{this.short}}'>{{this.defaultUrl}}{{this.short}}</a></td>
-			{{/each}}
-		</tr>
-	</tbody>
+			</tr>
+		</tbody>
+	{{/each}}
 </table>
 <button><a href='/'>返回</a></button>
