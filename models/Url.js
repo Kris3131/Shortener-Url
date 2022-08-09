@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const shortId = require('shortid')
+const randomstring = require('randomstring')
 
 const urlSchema = new mongoose.Schema({
 	full: {
@@ -10,7 +10,7 @@ const urlSchema = new mongoose.Schema({
 	short: {
 		type: String,
 		required: true,
-		default: shortId.generate,
+		default: randomstring.generate(5),
 	},
 	defaultUrl: {
 		type: String,
