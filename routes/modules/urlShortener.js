@@ -26,6 +26,7 @@ router.post('/shortUrl', (req, res) => {
 router.get('/shortUrl', (req, res) => {
 	Url.find()
 		.lean()
+		.sort({ _id: 'desc' })
 		.then((url) => res.render('show', { url }))
 		.catch((err) => console.log(err))
 })
