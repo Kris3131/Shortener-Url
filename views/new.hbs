@@ -3,7 +3,18 @@
 	<span class='mr-2'>Shorten URL:</span>
 	{{#if url}}
 		<h2>Success! Please use this link:</h2>
-		<a href='{{defaultUrl}}{{short}}'>{{defaultUrl}}{{short}}</a>
+		<input
+			type='text'
+			value='{{defaultUrl}}{{short}}'
+			id='copyUrlInput'
+			class='form-control'
+		/>
+		<button onclick='copy()' class='btn btn-secondary mt-3'>複製連結</button>
+		<script>
+			function copy() { const copyUrl = document.getElementById("copyUrlInput")
+			navigator.clipboard.writeText(copyUrl.innerText) .then(() =>
+			alert('copied')) .catch(error => console.log(error)) }
+		</script>
 	{{/if}}
 </div>
 <button class='btn btn-success'><a href='/'>返回</a></button>
