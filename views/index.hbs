@@ -7,11 +7,6 @@
 		</div>
 	{{/if}}
 	<div class='d-flex flex-column mb-3'>
-		<img
-			src='../images/ExportedContentImage_00.png'
-			alt='url-icon'
-			class='url-img rounded d-block mb-3'
-		/>
 		<label for='fullUrl'></label>
 		<input
 			type='url'
@@ -27,25 +22,3 @@
 		<button type='submit' class='btn btn-info mb-3'>Shorten</button>
 	</div>
 </form>
-{{#if url}}
-	<table class='table table-striped'>
-		<thead>
-			<tr>
-				<th scope='col'></th>
-				<th scope='col'>Full-Url</th>
-				<th scope='col'>Short-Url</th>
-			</tr>
-		</thead>
-		{{#each url}}
-			<tbody>
-				<tr>
-					<th scope='row'></th>
-					<td><a href='{{this.full}}'>{{this.full}}</a></td>
-					<td><a
-							href='/{{this.short}}'
-						>{{this.defaultUrl}}{{this.short}}</a></td>
-				</tr>
-			</tbody>
-		{{/each}}
-	</table>
-{{/if}}

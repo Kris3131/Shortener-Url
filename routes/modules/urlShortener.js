@@ -3,26 +3,25 @@ const Url = require('../../models/Url')
 const router = express.Router()
 
 router.get('/', (req, res) => {
-	Url.find()
-		.lean()
-		.then((url) => res.render('index', { url }))
-		.catch((err) => console.log(err))
+	res.render('index')
 })
-
 router.post('/shortUrl', (req, res) => {
-	Url.findOne({ full: req.body.fullUrl })
-		.then((url) => {
-			url ? url : Url.create({ full: req.body.fullUrl })
+	const fullUrl = req.body.fullUrl
+	Url.findOne({ full: fullUrl }).then((url) => {
+		if (!url) {
+			Url.create({ full: fullUrl })
+				.then((url) => {
+					res.render('new', {
+						url,
+						defaultUrl: url.defaultUrl,
+						short: url.short,
+					})
+				})
+				.catch((err) => console.log(err))
+		} else {
 			res.redirect('/')
-		})
-		.catch((err) => console.log(err))
+		}
+	})
 })
 
-router.get('/:shortUrl', (req, res) => {
-	Url.findOne({ short: req.params.shortUrl })
-		.then((url) => {
-			res.redirect(url.full)
-		})
-		.catch((err) => console.log(err))
-})
 module.exports = router

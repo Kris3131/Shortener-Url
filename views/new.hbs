@@ -1,0 +1,10 @@
+<h1 class='text-center mt-3'>Url Shortener</h1>
+<form action='/shortUrl' method='POST' class='needs-validation' novalidate>
+	<div class='alert alert-info' role='alert'>
+		<span class='mr-2'>Shorten URL:</span>
+		{{#if url}}
+			<h2>Success! Please use this link:</h2>
+			<a href='{{defaultUrl}}{{short}}'>{{defaultUrl}}{{short}}</a>
+		{{/if}}
+	</div>
+</form>
