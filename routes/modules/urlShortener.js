@@ -59,10 +59,18 @@ router.put('/shortUrl/:id', (req, res) => {
 		.catch((err) => console.log(err))
 })
 
+router.delete('/shortUrl/:id', (req, res) => {
+	const id = req.params.id
+	Url.findByIdAndRemove(id)
+		.lean()
+		.then(() => res.redirect('/'))
+		.catch((err) => console.log(err))
+})
+
 router.get('/:id', (req, res) => {
 	Url.findOne({ short: req.params.id })
 		.then((url) => {
-			url === null ? res.render('error') : res.redirect(url.full)
+			url === null ? res.redirect('/') : res.redirect(url.full)
 		})
 		.catch((err) => console.log(err))
 })

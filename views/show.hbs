@@ -1,10 +1,10 @@
-<table class='table table-striped'>
+<table class='table table-striped mx-auto'>
 	<thead class='thead-light'>
 		<tr>
 			<th scope='col'></th>
 			<th scope='col'>Full-Url</th>
 			<th scope='col'>Short-Url</th>
-			<th scope='col'></th>
+			<th scope='col'>Edit Option</th>
 		</tr>
 	</thead>
 	{{#each url}}
@@ -13,10 +13,23 @@
 				<th scope='row'></th>
 				<td><a href='{{this.full}}'>{{this.full}}</a></td>
 				<td><a href='/{{this.short}}'>{{this.defaultUrl}}{{this.short}}</a></td>
-				<td><button class='btn btn-primary'><a
-							class='text-white'
+				<td>
+					<button class='btn btn-primary text-wrap'><a
+							class='text-white text-wrap'
 							href='/shortUrl/{{this._id}}'
-						>修改路徑</a></button></td>
+							style='display: inline;'
+						>修改路徑</a></button>
+					<form
+						action='/shortUrl/{{this._id}}?_method=DELETE'
+						method='POST'
+						style='display: inline;'
+					>
+						<button class='btn btn-danger' type='submit'><a
+								class='text-white'
+							>刪除</a></button>
+					</form>
+
+				</td>
 			</tr>
 		</tbody>
 	{{/each}}
