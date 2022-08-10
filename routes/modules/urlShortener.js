@@ -6,6 +6,7 @@ const router = express.Router()
 router.get('/', (req, res) => {
 	res.render('index')
 })
+
 router.post('/shortUrl', (req, res) => {
 	const fullUrl = req.body.fullUrl
 	Url.findOne({ full: fullUrl }).then((url) => {
@@ -61,10 +62,21 @@ router.put('/shortUrl/:id', (req, res) => {
 
 router.delete('/shortUrl/:id', (req, res) => {
 	const id = req.params.id
-	Url.findByIdAndRemove(id)
+	Url.find()
 		.lean()
-		.then(() => res.redirect('/'))
+		.then((url) => {
+			Url.findById(id)
+				.then((url) => url.remove())
+				.catch((err) => console.log(err))
+			return
+		})
+		.then((url) => res.redirect('/shortUrl'))
 		.catch((err) => console.log(err))
+
+	// Url.findByIdAndRemove(id)
+	// 	.lean()
+	// 	.then(() => res.redirect('/'))
+	// 	.catch((err) => console.log(err))
 })
 
 router.get('/:id', (req, res) => {
