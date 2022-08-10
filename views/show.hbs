@@ -4,6 +4,7 @@
 			<th scope='col'></th>
 			<th scope='col'>Full-Url</th>
 			<th scope='col'>Short-Url</th>
+			<th scope='col'></th>
 		</tr>
 	</thead>
 	{{#each url}}
@@ -12,6 +13,10 @@
 				<th scope='row'></th>
 				<td><a href='{{this.full}}'>{{this.full}}</a></td>
 				<td><a href='/{{this.short}}'>{{this.defaultUrl}}{{this.short}}</a></td>
+				<td><button class='btn btn-primary'><a
+							class='text-white'
+							href='/shortUrl/{{this._id}}'
+						>修改路徑</a></button></td>
 			</tr>
 		</tbody>
 	{{/each}}

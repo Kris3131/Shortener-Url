@@ -32,8 +32,35 @@ router.get('/shortUrl', (req, res) => {
 		.then((url) => res.render('show', { url }))
 		.catch((err) => console.log(err))
 })
-router.get('/:shortUrl', (req, res) => {
-	Url.findOne({ short: req.params.shortUrl })
+router.get('/shortUrl/:id', (req, res) => {
+	const id = req.params.id
+	Url.findById(id)
+		.lean()
+		.then((url) => res.render('edit', { url, defaultUrl: url.defaultUrl }))
+		.catch((err) => console.log(err))
+})
+router.put('/shortUrl/:id', (req, res) => {
+	const id = req.params.id
+	const adjustUrl = req.body.adjustUrl
+	Url.findByIdAndUpdate(id, { defaultUrl: adjustUrl })
+		.lean()
+		.then((url) => {
+			Url.findById(id)
+				.lean()
+				.then((url) => {
+					res.render('new', {
+						url,
+						defaultUrl: url.defaultUrl,
+						short: url.short,
+					})
+				})
+				.catch((err) => console.log(err))
+		})
+		.catch((err) => console.log(err))
+})
+
+router.get('/:id', (req, res) => {
+	Url.findOne({ short: req.params.id })
 		.then((url) => {
 			url === null ? res.render('error') : res.redirect(url.full)
 		})
