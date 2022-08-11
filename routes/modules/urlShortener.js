@@ -17,6 +17,15 @@ router.post('/shortUrl', (req, res) => {
 						url,
 						defaultUrl: url.defaultUrl,
 						short: url.short,
+						helpers: {
+							copyToCliBoard: function copyToCliBoard() {
+								const copyText = document.getElementById('copyUrlInput')
+								copyText.select()
+								copyText.setSelectionRange(0, 99999) /* For mobile devices */
+								document.execCommand('copy')
+								alert('Copied the text: ' + copyText.value)
+							},
+						},
 					})
 				})
 				.catch((err) => console.log(err))
