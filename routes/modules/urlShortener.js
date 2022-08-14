@@ -19,10 +19,10 @@ router.post('/shortUrl', (req, res) => {
 						short: url.short,
 						helpers: {
 							copyToCliBoard: function copyToCliBoard() {
-								const copyText = document.getElementById('copyUrlInput')
+								const copyText = this.getElementById('copyUrlInput')
 								copyText.select()
 								copyText.setSelectionRange(0, 99999) /* For mobile devices */
-								document.execCommand('copy')
+								this.execCommand('copy')
 								alert('Copied the text: ' + copyText.value)
 							},
 						},
