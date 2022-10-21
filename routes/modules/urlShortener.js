@@ -16,7 +16,7 @@ router.post('/shortUrl', (req, res) => {
           res.render('new', {
             url,
             defaultUrl: url.defaultUrl,
-            short: url.short,
+            short: url.short
           })
         })
         .catch((err) => console.log(err))
@@ -52,7 +52,7 @@ router.put('/shortUrl/:id', (req, res) => {
           res.render('new', {
             url,
             defaultUrl: url.defaultUrl,
-            short: url.short,
+            short: url.short
           })
         })
         .catch((err) => console.log(err))
@@ -68,7 +68,6 @@ router.delete('/shortUrl/:id', (req, res) => {
       Url.findById(id)
         .then((url) => url.remove())
         .catch((err) => console.log(err))
-      return
     })
     .then((url) => res.redirect('/shortUrl'))
     .catch((err) => console.log(err))
