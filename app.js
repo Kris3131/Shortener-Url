@@ -8,11 +8,11 @@ const app = express()
 const PORT = process.env.PORT || 3000
 
 app.engine(
-	'hbs',
-	exphbs.engine({
-		defaultLayout: 'main',
-		extname: '.hbs',
-	})
+  'hbs',
+  exphbs.engine({
+    defaultLayout: 'main',
+    extname: '.hbs'
+  })
 )
 app.set('view engine', 'hbs')
 
@@ -22,5 +22,5 @@ app.use(methodOverride('_method'))
 app.use(routes)
 
 app.listen(PORT, () => {
-	console.log(`localhost -> http://localhost:${PORT}`)
+  console.log(`localhost -> http://localhost:${PORT}`)
 })
