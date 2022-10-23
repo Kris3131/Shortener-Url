@@ -3,9 +3,10 @@ const exphbs = require('express-handlebars')
 const routes = require('./routes')
 const methodOverride = require('method-override')
 const session = require('express-session')
+const MongoStore = require('connect-mongo')
+
 if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config()
-
 }
 require('./config/mongoose')
 const app = express()
@@ -20,6 +21,7 @@ const sessionOption ={
 	secret: process.env.SESSION_SECRET,
 	resave: false,
 	saveUninitialized: true,
+	store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI})
 }
 if(app.get('env') === 'production') {
 	app.set('trust proxy',1)
