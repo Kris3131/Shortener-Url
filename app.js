@@ -4,6 +4,7 @@ const routes = require('./routes')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
+const usePassport = require('./config/passport')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -34,6 +35,8 @@ if (app.get('env') === 'production') {
   sessionOption.cookie.secure = true
 }
 app.use(session(sessionOption))
+usePassport(app)
+
 app.use(routes)
 
 app.listen(PORT, () => {
