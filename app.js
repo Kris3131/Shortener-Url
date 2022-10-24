@@ -36,6 +36,11 @@ if (app.get('env') === 'production') {
 }
 app.use(session(sessionOption))
 usePassport(app)
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
 
 app.use(routes)
 

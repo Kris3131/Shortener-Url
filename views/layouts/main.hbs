@@ -24,6 +24,15 @@
               height="24"
             />
           </a>
+          {{#if isAuthenticated}}
+            <a href="/users/logout">
+              登出
+            </a>
+          {{else}}
+            <a href="/users/login">
+              登入
+            </a>
+          {{/if}}
         </div>
       </nav>
     </header>
