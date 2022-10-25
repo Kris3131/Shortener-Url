@@ -4,6 +4,8 @@ const routes = require('./routes')
 const methodOverride = require('method-override')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
+const flash = require('connect-flash')
+
 const usePassport = require('./config/passport')
 
 if (process.env.NODE_ENV !== 'production') {
@@ -36,9 +38,12 @@ if (app.get('env') === 'production') {
 }
 app.use(session(sessionOption))
 usePassport(app)
+app.use(flash())
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.success_message = req.flash('success_message')
+  res.locals.warning_message = req.flash('warning_message')
   next()
 })
 
