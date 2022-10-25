@@ -1,32 +1,44 @@
 const express = require('express')
 const passport = require('passport')
 const router = express.Router()
+const validator = require('validator')
 const User = require('../../models/user')
 
 router.get('/register', (req, res, next) => {
   res.render('register')
 })
-router.post('/register', (req, res, next) => {
+router.post('/register', async (req, res, next) => {
   // 抓出 input 的值
-  const { name, email, password, confirmPassword } = req.body
-  // 從 User model 中找出有沒有已經註冊的 user email，有->重新導回 register page ，並把 name 從新渲染到畫面。
-  // 沒有->將 user 資料 存到 User model
-  User.findOne({ email })
-    .then(user => {
-      if (user) {
-        console.log('使用者已經存在 ')
-        res.render('register', { name, password, confirmPassword })
-      } else {
-        return User.create({
-          name,
-          email,
-          password
-        })
-          .then(() => res.redirect('/'))
-          .catch(err => console.log(err))
-      }
-    })
-    .catch(err => console.log(err))
+  try {
+    const { name, email, password, confirmPassword } = req.body
+    const errors = []
+    if (!email.trim() || !password || !confirmPassword) {
+      errors.push({ message: '所有欄位為必填' })
+    }
+    if (!validator.isEmail(email)) { errors.push({ message: 'Email 格式不符' }) }
+    const passwordFormat = /^(?=.*[A-Za-z])(?=.*\d)[^]{8,20}$/
+    if (!passwordFormat.test(password)) {
+      errors.push({ message: '密碼長度必須 8 ~ 20 字元，包含數字和英文字母' })
+      console.log('密碼長度必須 8 ~ 20 字元，包含數字和英文字母')
+    }
+    if (password !== confirmPassword) {
+      errors.push({ message: '密碼與確認不同' })
+      console.log('密碼與確認不同')
+    }
+    if (errors.length) {
+      return res.render('register', { errors, name, email, password, confirmPassword })
+    }
+    const existedUser = await User.exists({ email })
+    if (existedUser) {
+      errors.push({ message: '帳號已經存在' })
+      return res.render('register', { errors, name, email, password, confirmPassword })
+    }
+    await User.create({ name, email, password })
+    console.log('註冊成功')
+    res.redirect('/users/login')
+  } catch (err) {
+    next(err)
+  }
 })
 router.get('/login', (req, res) => {
   res.render('login')
@@ -40,6 +52,9 @@ router.get('/logout', (req, res, next) => {
     if (err) { return next(err) }
     res.redirect('/users/login')
   })
+})
+router.get('/forgot-password', (req, res, next) => {
+  req.render('forgot-password')
 })
 
 module.exports = router
