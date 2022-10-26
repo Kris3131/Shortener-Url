@@ -67,11 +67,6 @@ router.delete('/shortUrl/:id', (req, res) => {
     })
     .then((url) => res.redirect('/shortUrl'))
     .catch((err) => console.log(err))
-
-  // Url.findByIdAndRemove(id)
-  // 	.lean()
-  // 	.then(() => res.redirect('/'))
-  // 	.catch((err) => console.log(err))
 })
 
 router.get('/:id', (req, res) => {
