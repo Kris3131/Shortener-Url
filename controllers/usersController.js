@@ -9,18 +9,29 @@ const usersController = {
   postRegister: async (req, res, next) => {
   // 抓出 input 的值
     try {
-      const { name, email, password, confirmPassword } = req.body
-      if (!email.trim() || !password || !confirmPassword) { return req.flash('warning_message', '所有欄位為必填') }
+      const errors = []
+      let { name, email, password, confirmPassword } = req.body
+      if (!email.trim() || !password || !confirmPassword) {
+        errors.push({ message: '所有欄位為必填' })
+      }
 
       if (!validator.isEmail(email)) {
-        return req.flash('warning_message', 'Email 格式不符')
+        errors.push({ message: 'Email 格式不符' })
+        email = ''
       }
       const passwordFormat = /^(?=.*[A-Za-z])(?=.*\d)[^]{8,20}$/
       if (!passwordFormat.test(password)) {
-        return req.flash('warning_message', '密碼長度必須 8 ~ 20 字元，包含數字和英文字母')
+        errors.push({ message: '密碼長度必須 8 ~ 20 字元，包含數字和英文字母' })
+        password = ''
+        confirmPassword = ''
       }
       if (password !== confirmPassword) {
-        return req.flash('warning_message', '密碼與確認不一致')
+        errors.push({ message: '密碼與確認不一致' })
+        password = ''
+        confirmPassword = ''
+      }
+      if (errors.length) {
+        return res.render('register', { errors, name, email, password, confirmPassword })
       }
       const existedUser = await User.exists({ email })
       if (existedUser) {
