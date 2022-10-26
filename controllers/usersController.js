@@ -38,7 +38,7 @@ const usersController = {
   getLoginPage: (req, res) => {
     res.render('login')
   },
-  getLogout: (req, res, next) => {
+  postLogout: (req, res, next) => {
     req.logout(function (err) {
       if (err) { return next(err) }
       req.flash('success_message', '成功登出')

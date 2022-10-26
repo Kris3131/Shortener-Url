@@ -25,9 +25,17 @@
             />
           </a>
           {{#if isAuthenticated}}
-            <a href="/users/logout">
-              登出
-            </a>
+            <form action="/users/logout" method="post" style="display: inline">
+              <button
+                type="submit"
+                style="background:none"
+                class="btn btn-danger"
+              >
+                <span style="color: black;">
+                  登出
+                </span>
+              </button>
+            </form>
           {{else}}
             <a href="/users/login">
               登入

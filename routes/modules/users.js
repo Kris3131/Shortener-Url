@@ -13,7 +13,7 @@ router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/users/login'
 }))
-router.get('/logout', usersController.getLogout)
+router.post('/logout', usersController.postLogout)
 
 router.get('/forgot-password', (req, res, next) => {
   req.render('forgot-password')
