@@ -7,24 +7,20 @@ router.get('/', (req, res) => {
   res.render('index')
 })
 
-router.post('/shortUrl', (req, res) => {
-  const fullUrl = req.body.fullUrl
-  Url.findOne({ full: fullUrl }).then((url) => {
-    if (!url) {
-      Url.create({ full: fullUrl })
-        .then((url) => {
-          res.render('new', {
-            url,
-            defaultUrl: url.defaultUrl,
-            short: url.short
-          })
-        })
-        .catch((err) => console.log(err))
-    } else {
-      // 輸入相同網址時，會導入 show 頁面，呈現所有製作過的URL
-      res.redirect('/shortUrl')
-    }
-  })
+router.post('/shortUrl', async (req, res, next) => {
+  try {
+    const { fullUrl } = req.body
+    const existUrl = await Url.findOne({ full: fullUrl })
+    if (existUrl) { return res.redirect('/shortUrl') }
+    const url = await Url.create({ full: fullUrl })
+    res.render('new', {
+      url,
+      defaultUrl: url.defaultUrl,
+      short: url.short
+    })
+  } catch (err) {
+    next(err)
+  }
 })
 router.get('/shortUrl', (req, res) => {
   Url.find()
