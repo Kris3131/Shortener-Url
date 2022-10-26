@@ -15,8 +15,4 @@ router.post('/login', passport.authenticate('local', {
 }))
 router.post('/logout', usersController.postLogout)
 
-router.get('/forgot-password', (req, res, next) => {
-  req.render('forgot-password')
-})
-
 module.exports = router

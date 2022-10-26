@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const validator = require('validator')
+const bcrypt = require('bcryptjs')
 
 const usersController = {
   getRegisterPage: (req, res) => {
@@ -9,27 +10,25 @@ const usersController = {
   // 抓出 input 的值
     try {
       const { name, email, password, confirmPassword } = req.body
-      const errors = []
-      if (!email.trim() || !password || !confirmPassword) {
-        errors.push({ message: '所有欄位為必填' })
+      if (!email.trim() || !password || !confirmPassword) { return req.flash('warning_message', '所有欄位為必填') }
+
+      if (!validator.isEmail(email)) {
+        return req.flash('warning_message', 'Email 格式不符')
       }
-      if (!validator.isEmail(email)) { errors.push({ message: 'Email 格式不符' }) }
       const passwordFormat = /^(?=.*[A-Za-z])(?=.*\d)[^]{8,20}$/
       if (!passwordFormat.test(password)) {
-        errors.push({ message: '密碼長度必須 8 ~ 20 字元，包含數字和英文字母' })
+        return req.flash('warning_message', '密碼長度必須 8 ~ 20 字元，包含數字和英文字母')
       }
       if (password !== confirmPassword) {
-        errors.push({ message: '密碼與確認不同' })
-      }
-      if (errors.length) {
-        return res.render('register', { errors, name, email, password, confirmPassword })
+        return req.flash('warning_message', '密碼與確認不一致')
       }
       const existedUser = await User.exists({ email })
       if (existedUser) {
-        errors.push({ message: '帳號已經存在' })
-        return res.render('register', { errors, name, email, password, confirmPassword })
+        req.flash('warning_message', '帳號已經存在')
+        return res.render('register', { name, email, password, confirmPassword })
       }
-      await User.create({ name, email, password })
+      await User.create({ name, email, password: bcrypt.hashSync(password, 10) })
+      req.flash('success_message', '帳號註冊成功')
       res.redirect('/users/login')
     } catch (err) {
       next(err)
