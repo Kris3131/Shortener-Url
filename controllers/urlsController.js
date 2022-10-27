@@ -63,7 +63,7 @@ const urlsController = {
   },
   redirectURL: async (req, res, next) => {
     try {
-      const url = Url.findOne({ short: req.params.id })
+      const url = await Url.findOne({ short: req.params.id })
       url === null ? res.redirect('/') : res.redirect(url.originalUrl)
     } catch (err) {
       next(err)
