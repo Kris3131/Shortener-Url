@@ -32,13 +32,13 @@ passport.use(new GoogleStrategy({
 async function (accessToken, refreshToken, profile, done) {
   const { name, email } = profile._json
   try {
-    const user = await User.findOne({ email })
-    if (!user) {
+    let userData = await User.findOne({ email })
+    if (!userData) {
       const randomPassword = Math.random().toString(36).slice(-8)
       const password = bcrypt.hashSync(randomPassword, 10)
-      await User.create({ name, email, password })
+      userData = await User.create({ name, email, password })
     }
-    return done(null, user)
+    return done(null, userData)
   } catch (err) {
     done(err, false)
   }
@@ -50,7 +50,7 @@ passport.serializeUser((user, done) => {
 })
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = User.findById(id).lean()
+    const user = await User.findById(id).lean()
     done(null, user)
   } catch (err) {
     done(err, null)

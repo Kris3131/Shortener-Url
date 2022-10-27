@@ -1,26 +1,27 @@
-<h1 class='text-center mt-3'>Url Shortener</h1>
-{{! 若使用者沒有輸入內容，按下了送出鈕，提示使用者 }}
-<form action='/shortUrl' method='POST' class='needs-validation'>
-	{{#if url}}
-		<div class='alert alert-info' role='alert'>
-			<span class='mr-2'>Shorten URL:</span>
-			<p>{{url.defaultUrl}}{{url.short}}</p>
-		</div>
-	{{/if}}
-	<div class='d-flex flex-column mb-3'>
-		<label for='fullUrl'></label>
-		<input
-			type='url'
-			name='fullUrl'
-			id='fullUrl'
-			class='form-control mb-3 .bg-light.bg-gradient'
-			placeholder='input url here'
-			required
-		/>
-		<div class='invalid-feedback'>
-			Please provide URL.
-		</div>
-		<button type='submit' class='btn btn-info mb-3'>Shorten</button>
-	</div>
+<h1 class="text-center mt-3">
+  Url Shortener
+</h1>
+<form action="/shortURL" method="POST" class="needs-validation">
+  <div class="d-flex flex-column mb-3">
+    <label for="originalUrl"></label>
+    <input
+      type="url"
+      name="originalUrl"
+      id="originalUrl"
+      class="form-control mb-3 .bg-light.bg-gradient"
+      placeholder="input url here"
+      required
+    />
+    <div class="invalid-feedback">
+      Please provide URL.
+    </div>
+    <button type="submit" class="btn btn-info mb-3">
+      Shorten
+    </button>
+  </div>
 </form>
-<button class='btn btn-success'><a href='/shortUrl'>查看</a></button>
+<button class="btn btn-success">
+  <a href="/shortURL">
+    查看
+  </a>
+</button>

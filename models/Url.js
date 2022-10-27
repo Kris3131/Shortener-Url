@@ -1,20 +1,22 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 const randomstring = require('randomstring')
 
-const urlSchema = new mongoose.Schema({
-  full: {
+const urlSchema = new Schema({
+  originalUrl: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
-  short: {
+  randomUrl: {
     type: String,
     required: true,
     default: randomstring.generate(5)
   },
-  defaultUrl: {
-    type: String,
-    default: 'https://urlShortener.herokuapp.com/'
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    index: true,
+    required: true
   }
 })
 

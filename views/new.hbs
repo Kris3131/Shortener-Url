@@ -9,12 +9,15 @@
     <h2>
       Success! Please use this link:
     </h2>
+    <p></p>
     <input
       type="text"
-      value="{{defaultUrl}}{{short}}"
+      target="_blank"
       id="copyUrlInput"
       class="form-control"
+      value="{{randomUrl}}"
     />
+
     <button onclick="copyToCliBoard()" class="btn btn-secondary mt-3">
       複製連結
     </button>
