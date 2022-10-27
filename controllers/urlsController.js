@@ -9,7 +9,7 @@ const urlsController = {
     try {
       const userId = req.user._id
       const url = await Url.create({ originalUrl, userId })
-      const shortenUrl = `http://${req.headers.host}/${url.randomUrl}`
+      const shortenUrl = `https://${req.headers.host}/${url.randomUrl}`
       return res.render('new', {
         url,
         randomUrl: shortenUrl
@@ -22,7 +22,7 @@ const urlsController = {
     try {
       const userId = req.user._id
       const url = await Url.find({ userId }).lean().sort({ _id: 'asc' })
-      const defaultUrl = `http://${req.headers.host}/`
+      const defaultUrl = `https://${req.headers.host}/`
       return res.render('show', { url, defaultUrl })
     } catch (err) {
       next(err)
@@ -34,7 +34,7 @@ const urlsController = {
       const userId = req.user._id
       const _id = req.params.id
       const url = await Url.findOne({ userId, _id }).lean()
-      const defaultUrl = `http://${req.headers.host}/`
+      const defaultUrl = `https://${req.headers.host}/`
       return res.render('edit', { url, defaultUrl, randomUrl: url.randomUrl })
     } catch (err) {
       next(err)
