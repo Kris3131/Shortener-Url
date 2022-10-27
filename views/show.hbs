@@ -1,37 +1,73 @@
-<table class='table table-striped mx-auto'>
-	<thead class='thead-light'>
-		<tr>
-			<th scope='col'></th>
-			<th scope='col'>Full-Url</th>
-			<th scope='col'>Short-Url</th>
-			<th scope='col'>Edit Option</th>
-		</tr>
-	</thead>
-	{{#each url}}
-		<tbody>
-			<tr>
-				<th scope='row'></th>
-				<td><a href='{{this.full}}'>{{this.full}}</a></td>
-				<td><a href='/{{this.short}}'>{{this.defaultUrl}}{{this.short}}</a></td>
-				<td>
-					<button class='btn btn-primary text-wrap'><a
-							class='text-white text-wrap'
-							href='/shortUrl/{{this._id}}'
-							style='display: inline;'
-						>修改路徑</a></button>
-					<form
-						action='/shortUrl/{{this._id}}?_method=DELETE'
-						method='POST'
-						style='display: inline;'
-					>
-						<button class='btn btn-danger' type='submit'><a
-								class='text-white'
-							>刪除</a></button>
-					</form>
+<div class="d-flex justify-content-around">
+  <h1 style="display: inline;">
+    URL 清單
+  </h1>
 
-				</td>
-			</tr>
-		</tbody>
-	{{/each}}
+  <button class="btn btn-success">
+    <a href="/">
+      製作新的URL
+    </a>
+  </button>
+</div>
+
+<table class="table table-striped mx-auto">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">
+        Full-Url
+      </th>
+      <th scope="col">
+        Short-Url
+      </th>
+      <th scope="col">
+        Edit Option
+      </th>
+    </tr>
+  </thead>
+
+  {{#each url}}
+    <tbody>
+      <tr>
+        <th scope="row"></th>
+        <td>
+          <a href="{{this.originalUrl}}">
+            {{this.originalUrl}}
+          </a>
+        </td>
+        <td>
+          <a href="{{defaultUrl}}/{{this.randomUrl}}">
+            {{defaultUrl}}/{{this.randomUrl}}
+          </a>
+        </td>
+        <td>
+          <button class="btn btn-primary text-wrap">
+            <a
+              class="text-white text-wrap"
+              href="/shortURL/{{this._id}}/edit"
+              style="display: inline;"
+            >
+              修改路徑
+            </a>
+          </button>
+          <form
+            action="/shortURL/{{this._id}}?_method=DELETE"
+            method="POST"
+            style="display: inline;"
+          >
+            <button class="btn btn-danger" type="submit">
+              <a class="text-white">
+                刪除
+              </a>
+            </button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  {{/each}}
 </table>
-<button class='btn btn-success'><a href='/'>返回</a></button>
+<button class="btn btn-success">
+  <a href="/">
+    返回
+  </a>
+</button>

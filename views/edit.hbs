@@ -1,13 +1,25 @@
-<h1 class='text-center mt-3'>Url Shortener</h1>
-<form action='/shortUrl/{{url._id}}?_method=PUT' method='POST'>
-	<input
-		type='text'
-		value='{{defaultUrl}}'
-		class='form-control'
-		name='adjustUrl'
-	/>
-	<button class='btn btn-secondary mt-3' type='submit'>送出</button>
+<h1 class="text-center mt-3">
+  Url Shortener
+</h1>
+<form action="/shortURL/{{url._id}}?_method=PUT" method="POST">
+  <input
+    type="text"
+    placeholder="{{defaultUrl}}{{randomUrl}}"
+    class="form-control"
+    name="adjustUrl"
+  />
+  <button class="btn btn-secondary mt-3" type="submit">
+    送出
+  </button>
 </form>
 
-<button class='btn btn-success'><a href='/'>返回</a></button>
-<button class='btn btn-info'><a href='/shortUrl'>查看</a></button>
+<button class="btn btn-success">
+  <a href="/">
+    返回
+  </a>
+</button>
+<button class="btn btn-info">
+  <a href="/shortURL">
+    查看
+  </a>
+</button>
