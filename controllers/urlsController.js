@@ -1,19 +1,20 @@
 const Url = require('../models/url')
+const generateRandom = require('../publics/javascripts/generateRandom')
 
 const urlsController = {
   getIndexPage: (req, res) => {
     res.render('index')
   },
   postURL: async (req, res, next) => {
-    const { originalUrl } = req.body
     try {
+      const { originalUrl } = req.body
       const userId = req.user._id
-      const url = await Url.create({ originalUrl, userId })
-      const shortenUrl = `https://${req.headers.host}/${url.randomUrl}`
-      return res.render('new', {
-        url,
-        randomUrl: shortenUrl
-      })
+      console.log(userId)
+      const randomString = await generateRandom(7)
+      console.log(randomString)
+      const url = await Url.create({ originalUrl, userId, randomUrl: randomString })
+      const shortenUrl = `https://${req.headers.host}/${randomString}`
+      return res.render('new', { url, randomUrl: shortenUrl })
     } catch (err) {
       next(err)
     }
@@ -21,9 +22,9 @@ const urlsController = {
   showURLs: async (req, res, next) => {
     try {
       const userId = req.user._id
-      const url = await Url.find({ userId }).lean().sort({ _id: 'asc' })
-      const defaultUrl = `https://${req.headers.host}/`
-      return res.render('show', { url, defaultUrl })
+      const urls = await Url.find({ userId }).lean().sort({ _id: 'asc' })
+      console.log(urls)
+      return res.render('show', { urls })
     } catch (err) {
       next(err)
     }
@@ -63,8 +64,9 @@ const urlsController = {
   },
   redirectURL: async (req, res, next) => {
     try {
-      const url = await Url.findOne({ short: req.params.id })
-      url === null ? res.redirect('/') : res.redirect(url.originalUrl)
+      const randomUrl = req.params.id
+      const url = await Url.findOne({ randomUrl })
+      url ? res.redirect(`${url.originalUrl}`) : res.status(404).render('404')
     } catch (err) {
       next(err)
     }

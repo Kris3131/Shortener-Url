@@ -26,18 +26,18 @@
     </tr>
   </thead>
 
-  {{#each url}}
+  {{#each urls}}
     <tbody>
       <tr>
         <th scope="row"></th>
         <td>
-          <a href="{{this.originalUrl}}">
+          <a href="{{this.originalUrl}}" target="_blank">
             {{this.originalUrl}}
           </a>
         </td>
         <td>
-          <a href="{{defaultUrl}}/{{this.randomUrl}}">
-            {{defaultUrl}}/{{this.randomUrl}}
+          <a href="/shortURL/{{this.randomUrl}}" target="_blank">
+            {{this.randomUrl}}
           </a>
         </td>
         <td>
