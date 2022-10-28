@@ -9,9 +9,7 @@ const urlsController = {
     try {
       const { originalUrl } = req.body
       const userId = req.user._id
-      console.log(userId)
       const randomString = await generateRandom(7)
-      console.log(randomString)
       const url = await Url.create({ originalUrl, userId, randomUrl: randomString })
       const shortenUrl = `https://${req.headers.host}/${randomString}`
       return res.render('new', { url, randomUrl: shortenUrl })
@@ -23,7 +21,6 @@ const urlsController = {
     try {
       const userId = req.user._id
       const urls = await Url.find({ userId }).lean().sort({ _id: 'asc' })
-      console.log(urls)
       return res.render('show', { urls })
     } catch (err) {
       next(err)
