@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const randomstring = require('randomstring')
 
 const urlSchema = new Schema({
   originalUrl: {
@@ -10,7 +9,8 @@ const urlSchema = new Schema({
   randomUrl: {
     type: String,
     required: true,
-    default: randomstring.generate(5)
+    default: false,
+    unique: true
   },
   userId: {
     type: Schema.Types.ObjectId,

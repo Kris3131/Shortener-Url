@@ -9,26 +9,18 @@
     <h2>
       Success! Please use this link:
     </h2>
-    <p></p>
-    <input
-      type="text"
+    <a
+      href="/shortURL/{{randomString}}"
       target="_blank"
       id="copyUrlInput"
-      class="form-control"
-      value="{{randomUrl}}"
-    />
+      style="display: block;"
+    >
+      {{randomUrl}}
+    </a>
 
     <button onclick="copyToCliBoard()" class="btn btn-secondary mt-3">
       複製連結
     </button>
-    <script>
-      function copyToCliBoard() { 
-							const copyText = document.getElementById("copyUrlInput"); 
-							copyText.select();
-							copyText.setSelectionRange(0, 99999); 
-							document.execCommand("copy"); alert("Copied the text: " + copyText.value);
-			}
-    </script>
   {{/if}}
 </div>
 <button class="btn btn-success">
@@ -37,7 +29,9 @@
   </a>
 </button>
 <button class="btn btn-info">
-  <a href="/shortUrl">
+  <a href="/shortURL">
     查看
   </a>
 </button>
+
+<script src="/javascripts/copyToCliBoard.js" defer></script>
