@@ -13,4 +13,12 @@ router.use('/users', users)
 router.use('/shortURL', authenticator, url)
 router.use('/', authenticator, urlsController.getIndexPage)
 
+router.use((err, req, res, next) => {
+  if (err.message === 'jwt expired') {
+    req.flash('warning_message', 'Reset Password link 過期了喔，請在重新申請')
+    res.redirect('/auth/reset-password')
+  } else {
+    next(err)
+  }
+})
 module.exports = router
