@@ -1,6 +1,6 @@
 const User = require('../models/user')
-const validator = require('validator')
 const bcrypt = require('bcryptjs')
+const { emailValidator, passwordValidator } = require('../helpers/validator-helper')
 
 const usersController = {
   getRegisterPage: (req, res) => {
@@ -10,26 +10,12 @@ const usersController = {
   // 抓出 input 的值
     try {
       const errors = []
-      let { name, email, password, confirmPassword } = req.body
+      const { name, email, password, confirmPassword } = req.body
       if (!email.trim() || !password || !confirmPassword) {
         errors.push({ message: '所有欄位為必填' })
       }
-
-      if (!validator.isEmail(email)) {
-        errors.push({ message: 'Email 格式不符' })
-        email = ''
-      }
-      const passwordFormat = /^(?=.*[A-Za-z])(?=.*\d)[^]{8,20}$/
-      if (!passwordFormat.test(password)) {
-        errors.push({ message: '密碼長度必須 8 ~ 20 字元，包含數字和英文字母' })
-        password = ''
-        confirmPassword = ''
-      }
-      if (password !== confirmPassword) {
-        errors.push({ message: '密碼與確認不一致' })
-        password = ''
-        confirmPassword = ''
-      }
+      emailValidator(email, errors)
+      passwordValidator(password, confirmPassword, errors)
       if (errors.length) {
         return res.render('register', { errors, name, email, password, confirmPassword })
       }
