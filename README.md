@@ -52,4 +52,13 @@
 
 ## 專案畫面
 
-![alt text](/publics/images/shortenerUrl.gif)
+登入畫面
+![alt text](/publics/images/login.png)
+寄送重設密碼信件
+![alt text](/publics/images/reset-password.png)
+縮短網址
+![alt text](/publics/images/shorten-url.png)
+成功縮短網址
+![alt text](/publics/images/shorten-url-success.png)
+短網址清單
+![alt text](/publics/images/shorten-url-list.png)
