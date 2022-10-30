@@ -1,38 +1,39 @@
-# 短網址 URL Shortener
+# 不只是縮短網址2.0 URL Shortener
 
 ---
 
 ## 專案介紹
 
-短網址產生器，可以查看製作的短網址清單，修改預設 URL 與刪除清單中的短網址。
+第一次嘗試短網址產生器 1.0 就覺得很有趣，這個版本是 2.0 的進階版，與第一版的差異在新增 User model，使用者登入後才可以使用縮短網址的功能，並且新增忘記密碼的功能，讓金魚腦的我可以重新設定密碼。
 
 ---
 
 ## 功能
 
+- Google 第三方登入
+- 忘記密碼
 - 縮短網址
 - 查看網址清單
-- 修改預設 https:// URL
+- 修改預設 URL 
 - 刪除清單網址
 
 ---
 
 ## 開發工具
 
-[node.js@6.14.2][node]
-[express@4.18.1][express]
-[express-handlebars@6.0.0][handlebars]
-[method-override@3.0.0][method-override]
-[mongoose@6.5.1][mongoose]
-[random-string@1.2.2][random-string]
-
-[node]: https://nodejs.org/zh-tw/download/
-[express]: https://www.npmjs.com/package/express
-[handlebars]: https://www.npmjs.com/package/express-handlebars
-[method-override]: https://www.npmjs.com/package/method-override
-[mongoose]: https://www.npmjs.com/package/mongoose
-[random-string]: https://www.npmjs.com/package/random-string
-
+- [node.js@6.14.2](https://nodejs.org/zh-tw/download/)
+- [express@4.18.1](https://www.npmjs.com/package/express)
+- [express-handlebars@6.0.0](https://www.npmjs.com/package/express-handlebars)
+- [method-override@3.0.0](https://www.npmjs.com/package/method-override)
+- [mongoose@6.5.1](https://www.npmjs.com/package/mongoose)
+- [random-string@1.2.2](https://www.npmjs.com/package/random-string)
+- [express-session@1.17.3](https://www.npmjs.com/package/express-session)
+- [jsonwebtoken@8.5.1](https://www.npmjs.com/package/jsonwebtoken)
+- [nodemailer@6.8.0](https://www.npmjs.com/package/nodemailer)
+- [passport@0.6.0](https://www.npmjs.com/package/passport)
+- [passport-google-oauth20@2.0.0](https://www.npmjs.com/package/passport-google-oauth20)
+- [passport-local](https://www.npmjs.com/package/passport-local)
+- [validator](https://www.npmjs.com/package/validator)
 ---
 
 ## 開始使用
@@ -41,9 +42,9 @@
 
 2. 安裝套件`npm install`
 
-3. 建立`.env`檔
+3. 建立`.env`檔，所需要的 `env` 變數可以在 `.env.sample`檔案中找到
 
-4. 在`env`檔案中設定 **MONGODB_URI** 環境變數
+4. nodemailer 設定比較多步驟，可以參考 [nodemailer 官方手冊](https://nodemailer.com/usage/using-gmail/)
 
 5. `npm run dev`啟動 localhost
 
