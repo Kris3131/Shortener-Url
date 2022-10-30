@@ -11,7 +11,7 @@ const urlsController = {
       const userId = req.user._id
       const randomString = await generateRandom(7)
       const url = await Url.create({ originalUrl, userId, randomUrl: randomString })
-      const shortenUrl = `http://${req.headers.host}/${randomString}`
+      const shortenUrl = `http://${req.headers.host}/shortURL/${randomString}`
 
       return res.render('new', { url, randomUrl: shortenUrl, randomString })
     } catch (err) {
